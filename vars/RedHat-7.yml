@@ -1,0 +1,8 @@
+---
+
+__openvpn_packages: ["openvpn"]
+
+__openvpn_user: "openvpn"
+__openvpn_group: "openvpn"
+
+__openvpn_service_name: "openvpn@{{ openvpn_name }}"

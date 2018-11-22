@@ -1,0 +1,40 @@
+---
+
+- name: "Include OS-specific variables"
+  include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+  tags: ["openvpn", "openvpn-install", "openvpn-configure"]
+
+
+- name: "Install OpenVPN"
+  become: true
+  package:
+    name: "{{ item }}"
+    state: "{{ openvpn_package_state }}"
+  with_items: "{{ openvpn_packages | list }}"
+  when: "openvpn_install"
+  tags: ["openvpn", "openvpn-install"]
+
+
+- name: "Configure OpenVPN Server"
+  become: true
+  template:
+    src: "config.j2"
+    dest: "{{ openvpn_config_dir }}/{{ openvpn_name }}.conf"
+    owner: "{{ openvpn_user }}"
+    group: "{{ openvpn_group }}"
+    mode: "0600"
+  when:
+    - "openvpn_configure"
+    - "openvpn_config|length > 0"
+  notify: ["restart openvpn"]
+  tags: ["openvpn", "openvpn-configure"]
+
+
+- name: "Manage openvpn service"
+  become: true
+  service:
+    name: "{{ openvpn_service_name }}"
+    state: "{{ openvpn_service_state }}"
+    enabled: "{{ openvpn_service_enabled }}"
+  when: "openvpn_service"
+  tags: ["openvpn", "openvpn-service"]

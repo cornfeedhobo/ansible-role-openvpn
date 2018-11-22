@@ -1,0 +1,17 @@
+---
+
+openvpn_install: false
+openvpn_packages: "{{ __openvpn_packages }}"
+openvpn_package_state: "present"
+
+openvpn_configure: false
+openvpn_user: "{{ __openvpn_user }}"
+openvpn_group: "{{ __openvpn_group }}"
+
+openvpn_service: false
+openvpn_service_state: "started"
+openvpn_service_enabled: true
+openvpn_service_name: "{{ __openvpn_service_name }}"
+
+openvpn_config_dir: "/etc/openvpn"
+openvpn_config: {}

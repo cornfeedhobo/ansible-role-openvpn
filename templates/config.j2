@@ -1,0 +1,14 @@
+######
+## {{ ansible_managed }}
+######
+
+{% for k, v in openvpn_config.items()|sort %}
+{% if k == 'dh' or k == 'key' or k == 'cert' or k == 'ca' %}
+<{{ k }}>
+{{ v }}
+</{{ k }}>
+{% else %}
+{{ k }}{% if v|string|length > 0 %} {{ v }}{% endif %}
+
+{% endif %}
+{% endfor %}

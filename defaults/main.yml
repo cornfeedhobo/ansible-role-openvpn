@@ -5,13 +5,14 @@ openvpn_packages: "{{ __openvpn_packages }}"
 openvpn_package_state: "present"
 
 openvpn_configure: false
-openvpn_user: "{{ __openvpn_user }}"
+openvpn_config_dir: "{{ __openvpn_config_dir }}"
+openvpn_config: {}
+openvpn_owner: "{{ __openvpn_owner }}"
 openvpn_group: "{{ __openvpn_group }}"
+openvpn_mode: "0600"
+openvpn_name: "server"
 
 openvpn_service: false
 openvpn_service_state: "started"
 openvpn_service_enabled: true
 openvpn_service_name: "{{ __openvpn_service_name }}"
-
-openvpn_config_dir: "/etc/openvpn"
-openvpn_config: {}

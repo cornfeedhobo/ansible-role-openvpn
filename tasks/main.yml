@@ -20,9 +20,9 @@
   template:
     src: "config.j2"
     dest: "{{ openvpn_config_dir }}/{{ openvpn_name }}.conf"
-    owner: "{{ openvpn_user }}"
+    owner: "{{ openvpn_owner }}"
     group: "{{ openvpn_group }}"
-    mode: "0600"
+    mode: "{{ openvpn_mode }}"
   when:
     - "openvpn_configure"
     - "openvpn_config|length > 0"
